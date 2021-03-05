@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+
+
+
+  <main id="main">
+
+    <div class="site-section site-portfolio">
+      <div class="container">
+        <div class="row mb-5 align-items-center">
+          <div class="col-md-12 col-lg-6 mb-4 mb-lg-0" data-aos="fade-up">
+            {% if user.is_authenticated %}
+            <h2>Hey,{{user.username}} </h2>
+            {% else %}
+            <h2>Hey,We are RBA CLothing </h2>
+            {% endif %}
+            <p class="mb-0">Get yourself a OOTD</p>
+          </div>
+
+
+    <form method="GET" class="search-bar">
+	<input type="text" name="q" id="id_q" placeholder="SEARCH.."> <!-- name='q' is very important here -->
+</form>
+
+<div style="margin-left: 100px;"><a href="{% url 'itemdetail' %}">
+  <img src="{% static 'img/cart.png' %}" style="height:50px; width:50px; margin-bottom:10px;"><sup>{{cart}}</sup></a></div>
+
+        </div>
+
+  </div>
+</div>
+
+{% if product %}
+    {% for i in product %}
+        <div id="portfolio-grid" class="row no-gutter" data-aos="fade-up" data-aos-delay="200" style="float:top; padding:10px 160px;">
+          <div class="item web col-sm-6 col-md-4 col-lg-4 mb-4">
+            <form method="post" action="{% url 'view_product' i.id %}">
+					{% csrf_token %}
+              <button type="submit">
+         <div class="item-wrap fancybox" style="height:300px; width:300px">
+              <div class="work-info">
+                <h3>{{i.Product_Name}}</h3>
+                <span>{{i.Product_Description}}</span><br>
+                <span>${{i.Product_Price}}</span>
+              </div>
+
+                <img class="img-fluid" src='/media/{{i.Product_Image}}' style="height:300px; width:300px">
+
+           </div>
+                </button>
+            </form>
+          </div>
+          </div>
+        {% endfor %}
+    {% else %}
+     <h2>no result</h2>
+    {% endif %}
+
+
+    <div class="site-section">
+      <div class="container">
+        <div class="row justify-content-center text-center mb-4">
+          <div class="col-5">
+            <h3 class="h3 heading">Brands</h3>
+            <p>We sell authentic products</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-4 col-sm-4 col-md-2">
+            <a href="#" class="client-logo"><img src="{% static 'img/logo-nike.png' %}" alt="Image" class="img-fluid" style="height:85px; width:85px;"></a>
+          </div>
+          <div class="col-4 col-sm-4 col-md-2">
+            <a href="#" class="client-logo"><img src="{% static 'img/adidas.png' %}" alt="Image" class="img-fluid" style="height:85px; width:85px;"></a>
+          </div>
+          <div class="col-4 col-sm-4 col-md-2" >
+            <a href="#" class="client-logo"><img src="{% static 'img/vans.png' %}" alt="Image" class="img-fluid" style="height:90px; width:90px;"></a>
+          </div>
+          <div class="col-4 col-sm-4 col-md-2">
+            <a href="#" class="client-logo"><img src="{% static 'img/balenciaga.png' %}" alt="Image" class="img-fluid" style="height:90px; width:90px;"></a>
+          </div>
+          <div class="col-4 col-sm-4 col-md-2">
+            <a href="#" class="client-logo"><img src="{% static 'img/gucci.png' %}" alt="Image" class="img-fluid" style="height:80px; width:85px;"></a>
+          </div>
+          <div class="col-4 col-sm-4 col-md-2">
+            <a href="#" class="client-logo"><img src="{% static 'img/lv.png' %}" alt="Image" class="img-fluid" style="height:85px; width:85px;"></a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+
+    <div class="site-section pt-0">
+      <div class="container">
+
+        <div class="owl-carousel testimonial-carousel">
+
+          <div class="testimonial-wrap">
+            <div class="testimonial">
+              <img src="{% static 'img/rohit.jpeg' %}" alt="Image" class="img-fluid" id="rohitphoto">
+              <blockquote>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam necessitatibus incidunt ut officiis
+                  explicabo inventore.</p>
+              </blockquote>
+              <p>&mdash; Rohit Lama</p>
+            </div>
+          </div>
+
+          <div class="testimonial-wrap">
+            <div class="testimonial">
+              <img src="{% static 'img/aboutme.jpeg' %}" alt="Image" class="img-fluid" id="bijenphoto">
+              <blockquote>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam necessitatibus incidunt ut officiis
+                  explicabo inventore.</p>
+              </blockquote>
+              <p>&mdash; Bijen Shahi</p>
+            </div>
+          </div>
+
+             <div class="testimonial-wrap">
+            <div class="testimonial">
+              <img src="{% static 'img/ajay.jpg' %}" alt="Image" class="img-fluid" id="ajayphoto">
+              <blockquote>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam necessitatibus incidunt ut officiis
+                  explicabo inventore.</p>
+              </blockquote>
+              <p>&mdash; Ajay Karki</p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+<script type="text/javascript">
+	document.getElementbyId('id_q').value = "q"
+</script>
+
+{% endblock %}

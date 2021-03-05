@@ -1,0 +1,35 @@
+  {% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+<style>
+#download{
+color:white;
+}
+</style>
+   {% if product %}
+        <div id="portfolio-grid" class="row no-gutter" data-aos="fade-up" data-aos-delay="200" style="margin-top:50px;">
+          <div class="item web col-sm-6 col-md-4 col-lg-4 mb-4">
+            <div class="item-wrap fancybox" style="height:300px; width:300px">
+              <div class="work-info">
+                <h3>{{product.Product_Name}}</h3>
+                <span>{{product.Product_Description}}</span><br>
+                <span>${{product.Product_Price}}</span><br><br><br>
+                <span><a href="/media/{{product.Product_Image}}" download id="download">Download Image</a></span>
+
+              </div>
+                <img class="img-fluid" src='/media/{{product.Product_Image}}' style="height:300px; width:300px">
+            </div>
+          </div>
+          </div>
+        <a href="{% url 'addtocart' product.id %}" class="btn btn-primary" style="margin-left:113px;">Add {{product.Product_Name}} to cart</a>
+        <a href="{% url 'removefromcart' product.id %}" class="btn btn-primary" style="margin-left:10px;">Remove {{product.Product_Name}} from cart</a>
+
+        {% endif %}
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+
+  {% endblock %}

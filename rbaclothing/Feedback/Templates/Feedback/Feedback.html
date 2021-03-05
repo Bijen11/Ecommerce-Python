@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+<style>
+div.gallery {
+  margin: 5px;
+  border: 1px solid #ccc;
+  float: left;
+  width: 180px;
+}
+
+div.gallery:hover {
+  border: 1px solid #777;
+}
+
+div.gallery img {
+  width: 100%;
+  height: 150px;;
+}
+
+div.desc {
+  padding: 15px;
+  text-align: center;
+}
+
+.feed{
+margin-left:150px;
+}
+
+</style>
+
+  <main id="main">
+
+    <div class="site-section pb-0 site-portfolio">
+      <div class="container">
+
+        <div class="row mb-5 align-items-end">
+          <div class="col-md-6" data-aos="fade-up">
+            <h2>Contact</h2>
+            <p class="mb-0">
+             Feel free to say
+            </p>
+          </div>
+
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-5 mb-md-0" data-aos="fade-up">
+
+            <form action="{% url 'feedback' %}" method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+              <div class="row">
+                <div class="col-md-6 form-group">
+                  <label for="name">Name</label>
+                  <input type="text" name="Name" class="form-control" id="name" data-rule="minlen:4" value="{{user.username}}" data-msg="Please enter at least 4 chars" />
+                  <div class="validate"></div>
+                </div>
+                <div class="col-md-6 form-group">
+                  <label for="name">Email</label>
+                  <input type="email" class="form-control" name="Email" id="email" data-rule="email" value="{{user.email}}" data-msg="Please enter a valid email" />
+                  <div class="validate"></div>
+                </div>
+                <div class="col-md-12 form-group">
+                  <label for="name">Subject</label>
+                  <input type="text" class="form-control" name="Subject" id="subject" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
+                  <div class="validate"></div>
+                </div>
+                <div class="col-md-12 form-group">
+                  <label for="name">Message</label>
+                  <textarea class="form-control" name="Message" cols="30" rows="10" data-rule="required" data-msg="Please write something for us"></textarea>
+                  <div class="validate"></div>
+                </div>
+                <input type="file" name="image">
+                <div class="col-md-6 form-group">
+                  <input type="submit" value="Send Message">
+                </div>
+              </div>
+
+            </form>
+
+          </div>
+
+          <div class="col-md-4 ml-auto order-2" data-aos="fade-up">
+            <ul class="list-unstyled">
+              <li class="mb-3">
+                <strong class="d-block mb-1">Address</strong>
+                <span>Hadigaun, Kathmandu, Nepal</span>
+              </li>
+              <li class="mb-3">
+                <strong class="d-block mb-1">Phone</strong>
+                <span>9810981098</span>
+              </li>
+              <li class="mb-3">
+                <strong class="d-block mb-1">Email</strong>
+                <span>RBA@gmail.com</span>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+        <div class="feed">
+          <h2>FeedBacks:</h2>
+          {% for i in image %}
+          <div class="gallery">
+           <img src="{{ i.img.url }}" alt="Cinque Terre">
+          <div class="desc">{{i.Message}}</div>
+          </div>
+          {% endfor %}
+        </div>
+
+{% endblock %}
